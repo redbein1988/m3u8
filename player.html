@@ -37,9 +37,48 @@ location.replace("mplayer.php?u=<?=$_GET["u"]?>");
 <div class="fb-like" data-href="https://facebook.com/alltvgoals" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
 </div>
 
-	<object type="application/x-shockwave-flash" name="player" data="http://sportlive.ws/assets/swf/player.swf" width="100%" height="100%" id="player" style="visibility: visible;" __idm_id__="918529"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><param name="bgcolor" value="#000000"><param name="wmode" value="opaque">
-		<param name="flashvars" value="src=http://50.97.49.87:1935/jjj/<?=$_GET["u"]?>/playlist.m3u8&amp;plugin_hls=http://sportlive.ws/assets/swf/hls_plugin.swf&amp;javascriptCallbackFunction=onJSBridge&amp;autoPlay=true&amp;controlBarAutoHide=false"?>/playlist.m3u8&amp;plugin_hls=http://sportlive.ws/assets/swf/hls_plugin.swf&amp;javascriptCallbackFunction=onJSBridge&amp;autoPlay=true&amp;controlBarAutoHide=false"?>/playlist.m3u8&amp;plugin_hls=http://sportlive.ws/assets/swf/hls_plugin.swf&amp;javascriptCallbackFunction=onJSBridge&amp;autoPlay=true&amp;controlBarAutoHide=false"></object>
+
 	
+	
+
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr/latest/clappr.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr.rtmp/latest/rtmp.min.js"></script>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/clappr.level-selector/latest/level-selector.min.js"></script>
+
+
+
+
+
+  <div id="player"></div>
+<script>
+
+
+(function() {
+var cors_api_host = 'cors-anywhere.herokuapp.com';
+var cors_api_url = 'https://' + cors_api_host + '/';
+var slice = [].slice;
+var origin = window.location.protocol + '//' + window.location.host;
+var open = XMLHttpRequest.prototype.open;
+XMLHttpRequest.prototype.open = function() {
+    var args = slice.call(arguments);
+    var targetOrigin = /^https?:\/\/([^\/]+)/i.exec(args[1]);
+    if (targetOrigin && targetOrigin[0].toLowerCase() !== origin &&
+        targetOrigin[1] !== cors_api_host) {
+        args[1] = cors_api_url + args[1];
+    }
+    return open.apply(this, args);
+};
+})();
+
+    var player = new Clappr.Player({source: "<?=$_GET["u"]?>", parentId: "#player", mimeType: 'application/x-mpegURL', 
+                                autoPlay: 'true', plugins: {'core': [LevelSelector]},
+mediacontrol: {seekbar: "#E113D3", buttons: "#66B2FF"}, width: '100%',
+        height: '100%'
+
+});
+  </script>
+
+
 		
 </div>
 
